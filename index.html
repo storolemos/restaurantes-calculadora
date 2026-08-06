@@ -190,7 +190,7 @@
         <p>Santiago Toro Lemos — Arquitectura & Diseño Interior de Hospitality. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Script de Cálculo Gradual -->
+    <!-- Script de Cálculo Gradual Perfeccionado -->
     <script>
         let currentCurrency = 'COP';
         let currentFormat = 'compacto';
@@ -273,13 +273,16 @@
                 baseTotal = 6000000; // COP Global fijo
                 kitchenFactor = 0.25;
             } else if (currentFormat === 'mediano') {
+                // Rango Mediano (71m2 a 200m2) escalando suavemente de 100k a 160k
                 let progress = (currentArea - 71) / (200 - 71); 
                 let unitRate = 100000 + (60000 * Math.pow(progress, 0.8)); 
                 baseTotal = currentArea * unitRate;
                 kitchenFactor = 0.20;
             } else if (currentFormat === 'grande') {
-                let progress = Math.min(1, (currentArea - 201) / 300);
-                let unitRate = 110000 - (50000 * Math.pow(progress, 0.7));
+                // Rango Grande (>200m2): Inicia de forma continua enlazando con el cierre del mediano (~160k) 
+                // y desciende armónicamente con la escala hacia los valores de gran formato (60k-110k)
+                let progress = (currentArea - 201) / 300;
+                let unitRate = 150000 - (70000 * Math.pow(progress, 0.65));
                 baseTotal = currentArea * unitRate;
                 kitchenFactor = 0.15;
             }
