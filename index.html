@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Inversión en Diseño | Santiago Toro Lemos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+    </style>
+</head>
+<body class="bg-neutral-950 text-neutral-100 min-h-full flex flex-col justify-between selection:bg-[#b25e34] selection:text-white">
+
+    <!-- Header / Branding -->
+    <header class="w-full border-b border-neutral-800/80 bg-neutral-950/80 backdrop-blur-md sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div>
+                <h1 class="text-lg font-semibold tracking-wide text-white">SANTIAGO TORO LEMOS</h1>
+                <p class="text-xs text-[#b25e34] tracking-widest uppercase">Arquitectura Gastronómica & Identidad Espacial</p>
+            </div>
+            <div class="text-xs text-neutral-400 bg-neutral-900 border border-neutral-800 px-3 py-1.5 rounded-full">
+                Simulador de Inversión
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 py-10">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="text-[#b25e34] text-xs font-semibold uppercase tracking-widest block mb-2">Calculadora Interactiva</span>
+            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">Cotiza el diseño de tu restaurante</h2>
+            <p class="text-neutral-400 text-sm sm:text-base leading-relaxed">
+                Selecciona el formato de tu espacio e introduce los metros cuadrados para conocer una estimación detallada de nuestros servicios de diseño y estructuración por fases.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Formulario de Configuración (7 cols) -->
+            <div class="lg:col-span-7 bg-neutral-900/60 border border-neutral-800/80 rounded-2xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
+                <h3 class="text-lg font-medium text-white mb-6 pb-3 border-b border-neutral-800 flex items-center justify-between">
+                    <span>1. Parámetros del Proyecto</span>
+                    <span class="text-xs text-neutral-500 font-normal">Paso 1 de 2</span>
+                </h3>
+
+                <!-- Moneda -->
+                <div class="mb-6">
+                    <label class="block text-xs uppercase tracking-wider text-neutral-400 mb-2 font-medium">Moneda de Visualización</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button type="button" id="btn-cop" onclick="setCurrency('COP')" class="py-3 px-4 rounded-xl border text-sm font-medium transition-all flex items-center justify-center gap-2 bg-[#b25e34] text-white border-[#b25e34] shadow-lg shadow-[#b25e34]/10">
+                            COP (Pesos Colombianos)
+                        </button>
+                        <button type="button" id="btn-usd" onclick="setCurrency('USD')" class="py-3 px-4 rounded-xl border text-sm font-medium transition-all flex items-center justify-center gap-2 bg-neutral-800/80 text-neutral-300 border-neutral-700 hover:border-neutral-600">
+                            USD (Dólares)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Formato de Restaurante -->
+                <div class="mb-6">
+                    <label class="block text-xs uppercase tracking-wider text-neutral-400 mb-2 font-medium">Formato del Restaurante</label>
+                    <div class="space-y-3">
+                        <label class="flex items-start p-4 rounded-xl border border-neutral-800 bg-neutral-950/40 hover:border-neutral-700 cursor-pointer transition-all format-card" onclick="selectFormat('compacto')">
+                            <input type="radio" name="format" value="compacto" class="mt-1 text-[#b25e34] focus:ring-[#b25e34] bg-neutral-900 border-neutral-700" checked>
+                            <div class="ml-3">
+                                <span class="block text-sm font-semibold text-white">Formato Compacto / Express</span>
+                                <span class="block text-xs text-neutral-400 mt-0.5">Locales en centros comerciales, islas (Hasta 70 m²)</span>
+                            </div>
+                        </label>
+                        
+                        <label class="flex items-start p-4 rounded-xl border border-neutral-800 bg-neutral-950/40 hover:border-neutral-700 cursor-pointer transition-all format-card" onclick="selectFormat('mediano')">
+                            <input type="radio" name="format" value="mediano" class="mt-1 text-[#b25e34] focus:ring-[#b25e34] bg-neutral-900 border-neutral-700">
+                            <div class="ml-3">
+                                <span class="block text-sm font-semibold text-white">Formato Mediano</span>
+                                <span class="block text-xs text-neutral-400 mt-0.5">Restaurantes independientes estándar (71 m² a 200 m²)</span>
+                            </div>
+                        </label>
+
+                        <label class="flex items-start p-4 rounded-xl border border-neutral-800 bg-neutral-950/40 hover:border-neutral-700 cursor-pointer transition-all format-card" onclick="selectFormat('grande')">
+                            <input type="radio" name="format" value="grande" class="mt-1 text-[#b25e34] focus:ring-[#b25e34] bg-neutral-900 border-neutral-700">
+                            <div class="ml-3">
+                                <span class="block text-sm font-semibold text-white">Formato Grande / Hospitality</span>
+                                <span class="block text-xs text-neutral-400 mt-0.5">Proyectos de gran formato (Más de 200 m²)</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Metros Cuadrados (Solo para Mediano y Grande) -->
+                <div class="mb-6" id="area-container">
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-xs uppercase tracking-wider text-neutral-400 font-medium">Área del Local (m²)</label>
+                        <span id="area-val" class="text-sm font-semibold text-[#b25e34] bg-[#b25e34]/10 px-2.5 py-0.5 rounded-md border border-[#b25e34]/20">100 m²</span>
+                    </div>
+                    <input type="range" id="area-range" min="71" max="500" value="100" step="1" class="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-[#b25e34]" oninput="updateArea(this.value)">
+                </div>
+
+                <!-- Incluye Cocina -->
+                <div class="pt-4 border-t border-neutral-800">
+                    <label class="flex items-center justify-between p-4 rounded-xl border border-neutral-800 bg-neutral-950/40 hover:border-neutral-700 cursor-pointer transition-all">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="include-kitchen" onchange="calculate()" class="w-4 h-4 text-[#b25e34] focus:ring-[#b25e34] bg-neutral-900 border-neutral-700 rounded">
+                            <div class="ml-3">
+                                <span class="block text-sm font-semibold text-white">Incluir Coordinación de Cocinas y Operatividad</span>
+                                <span class="block text-xs text-neutral-400 mt-0.5">Aplica factor de complejidad y optimización de flujos operativos</span>
+                            </div>
+                        </div>
+                        <span id="kitchen-rate-tag" class="text-xs font-semibold text-[#b25e34] bg-[#b25e34]/10 px-2.5 py-1 rounded-md border border-[#b25e34]/20">+20%</span>
+                    </label>
+
+                    <!-- Nota Aclaratoria Dinámica de Cocina -->
+                    <div id="kitchen-disclaimer" class="hidden mt-3 p-3.5 bg-neutral-950/60 border border-neutral-800 rounded-xl text-xs text-neutral-400 leading-relaxed">
+                        (Nota: Nuestro alcance se centra en el diseño espacial y la coordinación arquitectónica; la especificación interna, fabricación, garantía y mantenimiento de los equipos industriales recaen exclusivamente sobre el proveedor de cocina elegido).
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Resultados y Desglose (5 cols) -->
+            <div class="lg:col-span-5 bg-gradient-to-b from-neutral-900 to-neutral-950 border border-[#b25e34]/30 rounded-2xl p-6 sm:p-8 backdrop-blur-sm shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-[#b25e34]/5 rounded-full blur-3xl pointer-events-none"></div>
+
+                <h3 class="text-lg font-medium text-white mb-6 pb-3 border-b border-neutral-800 flex items-center justify-between">
+                    <span>Resumen de Inversión</span>
+                    <span class="text-xs text-[#b25e34] font-semibold uppercase tracking-wider">Estimación 2026</span>
+                </h3>
+
+                <!-- Total Principal -->
+                <div class="bg-neutral-950/80 border border-neutral-800 rounded-xl p-5 mb-6 text-center">
+                    <span class="text-xs uppercase tracking-widest text-neutral-400 block mb-1">Inversión Total Estimada</span>
+                    <div id="total-price" class="text-3xl sm:text-4xl font-bold text-[#b25e34] tracking-tight my-1">
+                        COP $14.400.000
+                    </div>
+                    <span id="total-subtext" class="text-xs text-neutral-500">Valor global con factor de cocina incluido</span>
+                </div>
+
+                <!-- Desglose por Fases -->
+                <div class="space-y-3 mb-8">
+                    <span class="text-xs uppercase tracking-wider text-neutral-400 font-medium block mb-2">Desglose por Fases del Proyecto</span>
+                    
+                    <div class="bg-neutral-900/40 border border-neutral-800/80 rounded-xl p-3.5 flex justify-between items-center text-sm">
+                        <div>
+                            <span class="font-semibold text-white block">Fase 1: Diagnóstico y Concepto</span>
+                            <span class="text-xs text-neutral-400">20% del total · 100% anticipo</span>
+                        </div>
+                        <span id="phase-1" class="font-semibold text-[#b25e34]">COP $2.880.000</span>
+                    </div>
+
+                    <div class="bg-neutral-900/40 border border-neutral-800/80 rounded-xl p-3.5 flex justify-between items-center text-sm">
+                        <div>
+                            <span class="font-semibold text-white block">Fase 2: Diseño Interior y 3D</span>
+                            <span class="text-xs text-neutral-400">40% del total · El motor de venta</span>
+                        </div>
+                        <span id="phase-2" class="font-semibold text-[#b25e34]">COP $5.760.000</span>
+                    </div>
+
+                    <div class="bg-neutral-900/40 border border-neutral-800/80 rounded-xl p-3.5 flex justify-between items-center text-sm">
+                        <div>
+                            <span class="font-semibold text-white block">Fase 3: Proyecto Técnico y Planos</span>
+                            <span class="text-xs text-neutral-400">25% del total · Respaldo ejecutivo</span>
+                        </div>
+                        <span id="phase-3" class="font-semibold text-[#b25e34]">COP $3.600.000</span>
+                    </div>
+
+                    <div class="bg-neutral-900/40 border border-neutral-800/80 rounded-xl p-3.5 flex justify-between items-center text-sm">
+                        <div>
+                            <span class="font-semibold text-white block">Fase 4: Acompañamiento a Obra</span>
+                            <span class="text-xs text-neutral-400">15% del total · Opcional por hitos</span>
+                        </div>
+                        <span id="phase-4" class="font-semibold text-[#b25e34]">COP $2.160.000</span>
+                    </div>
+                </div>
+
+                <!-- Botón de Contacto / Propuesta vía WhatsApp -->
+                <a href="https://wa.me/message/YWD2HN624FTZF1" target="_blank" rel="noopener noreferrer" class="w-full bg-[#b25e34] hover:bg-[#9a4e2a] text-white font-semibold py-4 px-6 rounded-xl transition-all shadow-lg shadow-[#b25e34]/20 text-sm tracking-wide uppercase flex items-center justify-center gap-2 text-center">
+                    Solicitar Propuesta Formal
+                </a>
+                <p class="text-[11px] text-center text-neutral-500 mt-3">
+                    * Los valores aquí presentados son una estimación preliminar, hablemos para revisar tu proyecto.
+                </p>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full border-t border-neutral-900 py-6 px-6 text-center text-xs text-neutral-500">
+        <p>Santiago Toro Lemos — Arquitectura & Diseño Interior de Hospitality. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Script de Cálculo Gradual -->
+    <script>
+        let currentCurrency = 'COP';
+        let currentFormat = 'compacto';
+        let currentArea = 100;
+
+        const USD_EXCHANGE_RATE = 3000;
+
+        function setCurrency(curr) {
+            currentCurrency = curr;
+            const btnCop = document.getElementById('btn-cop');
+            const btnUsd = document.getElementById('btn-usd');
+
+            if (curr === 'COP') {
+                btnCop.className = "py-3 px-4 rounded-xl border text-sm font-medium transition-all flex items-center justify-center gap-2 bg-[#b25e34] text-white border-[#b25e34] shadow-lg shadow-[#b25e34]/10";
+                btnUsd.className = "py-3 px-4 rounded-xl border text-sm font-medium transition-all flex items-center justify-center gap-2 bg-neutral-800/80 text-neutral-300 border-neutral-700 hover:border-neutral-600";
+            } else {
+                btnUsd.className = "py-3 px-4 rounded-xl border text-sm font-medium transition-all flex items-center justify-center gap-2 bg-[#b25e34] text-white border-[#b25e34] shadow-lg shadow-[#b25e34]/10";
+                btnCop.className = "py-3 px-4 rounded-xl border text-sm font-medium transition-all flex items-center justify-center gap-2 bg-neutral-800/80 text-neutral-300 border-neutral-700 hover:border-neutral-600";
+            }
+            calculate();
+        }
+
+        function selectFormat(format) {
+            currentFormat = format;
+            const areaContainer = document.getElementById('area-container');
+            const areaRange = document.getElementById('area-range');
+            const kitchenRateTag = document.getElementById('kitchen-rate-tag');
+
+            if (format === 'compacto') {
+                areaContainer.style.display = 'none';
+                kitchenRateTag.innerText = '+25%';
+            } else if (format === 'mediano') {
+                areaContainer.style.display = 'block';
+                areaRange.min = 71;
+                areaRange.max = 200;
+                if (parseInt(areaRange.value) < 71 || parseInt(areaRange.value) > 200) {
+                    areaRange.value = 75;
+                    currentArea = 75;
+                } else {
+                    currentArea = parseInt(areaRange.value);
+                }
+                document.getElementById('area-val').innerText = currentArea + ' m²';
+                kitchenRateTag.innerText = '+20%';
+            } else if (format === 'grande') {
+                areaContainer.style.display = 'block';
+                areaRange.min = 201;
+                areaRange.max = 500;
+                if (parseInt(areaRange.value) < 201) {
+                    areaRange.value = 205;
+                    currentArea = 205;
+                } else {
+                    currentArea = parseInt(areaRange.value);
+                }
+                document.getElementById('area-val').innerText = currentArea + ' m²';
+                kitchenRateTag.innerText = '+15%';
+            }
+            calculate();
+        }
+
+        function updateArea(val) {
+            currentArea = parseInt(val);
+            document.getElementById('area-val').innerText = currentArea + ' m²';
+            calculate();
+        }
+
+        function formatCurrency(amount, currency) {
+            if (currency === 'COP') {
+                return 'COP $' + Math.round(amount).toLocaleString('es-CO');
+            } else {
+                let amountUSD = amount / USD_EXCHANGE_RATE;
+                return 'USD $' + Math.round(amountUSD).toLocaleString('en-US');
+            }
+        }
+
+        function calculate() {
+            let baseTotal = 0;
+            let kitchenFactor = 0;
+
+            if (currentFormat === 'compacto') {
+                baseTotal = 6000000; // COP Global fijo
+                kitchenFactor = 0.25;
+            } else if (currentFormat === 'mediano') {
+                let progress = (currentArea - 71) / (200 - 71); 
+                let unitRate = 100000 + (60000 * Math.pow(progress, 0.8)); 
+                baseTotal = currentArea * unitRate;
+                kitchenFactor = 0.20;
+            } else if (currentFormat === 'grande') {
+                let progress = Math.min(1, (currentArea - 201) / 300);
+                let unitRate = 110000 - (50000 * Math.pow(progress, 0.7));
+                baseTotal = currentArea * unitRate;
+                kitchenFactor = 0.15;
+            }
+
+            const includeKitchen = document.getElementById('include-kitchen').checked;
+            const disclaimerBox = document.getElementById('kitchen-disclaimer');
+            
+            if (includeKitchen) {
+                disclaimerBox.classList.remove('hidden');
+            } else {
+                disclaimerBox.classList.add('hidden');
+            }
+
+            let finalTotal = baseTotal;
+
+            if (includeKitchen) {
+                finalTotal += (baseTotal * kitchenFactor);
+                document.getElementById('total-subtext').innerText = currentFormat === 'compacto' ? 
+                    'Incluye coordinación de cocinas y operatividad (+25%)' : 
+                    'Incluye coordinación de cocinas y flujos operativos';
+            } else {
+                document.getElementById('total-subtext').innerText = 'Tarifa base de diseño (Sin coordinación de cocina)';
+            }
+
+            let p1 = finalTotal * 0.20;
+            let p2 = finalTotal * 0.40;
+            let p3 = finalTotal * 0.25;
+            let p4 = finalTotal * 0.15;
+
+            document.getElementById('total-price').innerText = formatCurrency(finalTotal, currentCurrency);
+            document.getElementById('phase-1').innerText = formatCurrency(p1, currentCurrency);
+            document.getElementById('phase-2').innerText = formatCurrency(p2, currentCurrency);
+            document.getElementById('phase-3').innerText = formatCurrency(p3, currentCurrency);
+            document.getElementById('phase-4').innerText = formatCurrency(p4, currentCurrency);
+        }
+
+        window.onload = function() {
+            selectFormat('compacto');
+        };
+    </script>
+</body>
+</html>
